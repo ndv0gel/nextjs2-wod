@@ -7,6 +7,7 @@ const StuffItemAdmin = ({ name, quantity, condition, owner, id }: Stuff) => (
     <td>{quantity}</td>
     <td>{condition}</td>
     <td>{owner}</td>
+    <td>{category}</td>
     <td>
       <a href={`/edit/${id}`}>Edit</a>
     </td>

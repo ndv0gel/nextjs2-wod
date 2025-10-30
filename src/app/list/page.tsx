@@ -34,7 +34,8 @@ const ListPage = async () => {
                   <th>Name</th>
                   <th>Quantity</th>
                   <th>Condition</th>
-                  <th>Actions</th>
+                  <th>Category</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>

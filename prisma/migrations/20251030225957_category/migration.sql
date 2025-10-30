@@ -4,6 +4,9 @@ CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 -- CreateEnum
 CREATE TYPE "Condition" AS ENUM ('excellent', 'good', 'fair', 'poor');
 
+-- CreateEnum
+CREATE TYPE "Category" AS ENUM ('Food', 'Sporting_Goods', 'Electronics', 'Other');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -19,7 +22,8 @@ CREATE TABLE "Stuff" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "condition" "Condition" NOT NULL,
+    "condition" "Condition" NOT NULL DEFAULT 'good',
+    "category" "Category" NOT NULL DEFAULT 'Other',
     "owner" TEXT NOT NULL,
 
     CONSTRAINT "Stuff_pkey" PRIMARY KEY ("id")

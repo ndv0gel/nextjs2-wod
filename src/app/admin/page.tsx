@@ -28,7 +28,8 @@ const AdminPage = async () => {
                   <th>Quantity</th>
                   <th>Condition</th>
                   <th>Owner</th>
-                  <th>Actions</th>
+                  <th>Category</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>

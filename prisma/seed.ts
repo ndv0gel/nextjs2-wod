@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Condition } from '@prisma/client';
+import { PrismaClient, Role, Condition, Category } from '@prisma/client';
 import { hash } from 'bcrypt';
 import * as config from '../config/settings.development.json';
 
@@ -19,10 +19,10 @@ async function main() {
         role,
       },
     });
-    // console.log(`  Created user: ${user.email} with role: ${user.role}`);
   });
   for (const data of config.defaultData) {
     const condition = data.condition as Condition || Condition.good;
+    const category = data.category as Category || Category.Other;
     console.log(`  Adding stuff: ${JSON.stringify(data)}`);
     // eslint-disable-next-line no-await-in-loop
     await prisma.stuff.upsert({
@@ -33,6 +33,7 @@ async function main() {
         quantity: data.quantity,
         owner: data.owner,
         condition,
+        category,
       },
     });
   }
@@ -44,3 +45,4 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+  

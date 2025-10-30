@@ -1,15 +1,15 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
+import { Stuff, Condition, Category } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
 /**
  * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
+ * @param stuff, an object with the following properties: name, quantity, owner, condition, category.
  */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
+export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string; category: string }) {
   // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
   let condition: Condition = 'good';
   if (stuff.condition === 'poor') {
@@ -19,12 +19,23 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
   } else {
     condition = 'fair';
   }
+  
+  let category: Category = 'Other';
+  if (stuff.category === 'Food') {
+    category = 'Food';
+  } else if (stuff.category === 'Sporting_Goods') {
+    category = 'Sporting_Goods';
+  } else if (stuff.category === 'Electronics') {
+    category = 'Electronics';
+  }
+  
   await prisma.stuff.create({
     data: {
       name: stuff.name,
       quantity: stuff.quantity,
       owner: stuff.owner,
       condition,
+      category,
     },
   });
   // After adding, redirect to the list page
@@ -33,7 +44,7 @@ export async function addStuff(stuff: { name: string; quantity: number; owner: s
 
 /**
  * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
+ * @param stuff, an object with the following properties: id, name, quantity, owner, condition, category.
  */
 export async function editStuff(stuff: Stuff) {
   // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
@@ -44,6 +55,7 @@ export async function editStuff(stuff: Stuff) {
       quantity: stuff.quantity,
       owner: stuff.owner,
       condition: stuff.condition,
+      category: stuff.category,
     },
   });
   // After updating, redirect to the list page

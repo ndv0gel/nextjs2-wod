@@ -73,6 +73,20 @@ const EditStuffForm = ({ stuff }: { stuff: Stuff }) => {
                   </select>
                   <div className="invalid-feedback">{errors.condition?.message}</div>
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>Category</Form.Label>
+                  <select
+                    {...register('category')}
+                    className={`form-control ${errors.category ? 'is-invalid' : ''}`}
+                    defaultValue={stuff.category}
+                  >
+                    <option value="Food">Food</option>
+                    <option value="Sporting_Goods">Sporting Goods</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <div className="invalid-feedback">{errors.category?.message}</div>
+                </Form.Group>
                 <input type="hidden" {...register('owner')} value={stuff.owner} />
                 <Form.Group className="form-group">
                   <Row className="pt-3">

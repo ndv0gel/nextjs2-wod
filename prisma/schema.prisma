@@ -36,10 +36,18 @@ enum Condition {
   poor
 }
 
+enum Category {
+  Food
+  Sporting_Goods
+  Electronics
+  Other
+}
+
 model Stuff {
   id        Int       @id @default(autoincrement())
   name      String
   quantity  Int
   condition Condition @default(good)
+  category  Category  @default(Other)
   owner     String
 }
